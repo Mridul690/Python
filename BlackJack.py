@@ -15,10 +15,12 @@ print(logo)
 cards = [1,2,3,4,5,6,7,8,9,10,10,10,10]
 
 def deal_cards():
+  user_cards = r.sample(cards,2)
   comp_cards = r.sample(cards,2)
   #random.sample(list,n) returns n number (or list of size n)of randomly chosen elements from the given list ,string,tuple ,etc.
-  a = comp_cards[0]
-  print(f"Computer's Cards :[{a},?]")
+  print(f"Computer's Cards :[{comp_cards[0]},?]")
+  print(f"User's Cards : [{user_cards}]")
+  
   
 
 
