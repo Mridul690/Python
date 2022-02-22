@@ -30,16 +30,23 @@ def bid_amount():
 
 
 def deal_cards():
-  sum = 0
   user_cards = r.sample(cards,2)
   comp_cards = r.sample(cards,2)
 #  bid_amount()
   #random.sample(list,n) returns n number (or list of size n)of randomly chosen elements from the given list ,string,tuple ,etc.
   print(f"Computer's Cards :[{comp_cards[0]},?]")
   print(f"User's Cards : [{user_cards}]")
+  calculation(user_cards,comp_cards)
 
-  for i in user_cards:
-    sum = sum+i
+
+
+def calculation(user_cards,comp_cards) :
+    sum = 0
+    for i in user_cards:
+        sum = sum+i
   
-  if sum <18:
-      h = input("Please press 'H' for serving next card : ").upper()
+    if sum <18:
+        h = input("Please press 'H' for serving next card : ").upper()
+        if h == 'H':
+            new_card = r.choice(cards)
+ 
