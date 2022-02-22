@@ -36,11 +36,11 @@ def deal_cards():
   #random.sample(list,n) returns n number (or list of size n)of randomly chosen elements from the given list ,string,tuple ,etc.
   print(f"Computer's Cards :[{comp_cards[0]},?]")
   print(f"User's Cards : [{user_cards}]")
-  calculation(user_cards,comp_cards)
+  Compare(user_cards,comp_cards)
 
 
 
-def calculation(user_cards,comp_cards) :
+def Compare(user_cards,comp_cards) :
     sum = 0
     for i in user_cards:
         sum = sum+i
