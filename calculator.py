@@ -9,11 +9,11 @@ class calculator:
         print(f"The value of {self.num} square is {self.num**2}")
     def squareRoot(self):
         print(f"The value of {self.num} square is {self.num**0.5}")
-    def Cube(self):
+    def cube(self):
         print(f"The value of {self.num} square is {self.num**3}")
 
 
 a = calculator(8)
 a.square()
-a.Cube()
+a.cube()
 a.squareRoot()
