@@ -7,13 +7,13 @@ _     _            _    _            _
 | |__ | | __ _  ___| | ___  __ _  ___| | __
 | '_ \| |/ _` |/ __| |/ / |/ _` |/ __| |/ /
 | |_) | | (_| | (__|   <| | (_| | (__|   < 
-|_.__/|_|\__,_|\___|_|\_\ |\__,_|\___|_|\_\
+|_.__/|_|\__,_|\___|_|\_\ |\__,_|\___|_|\_/
                        _/ |                
                       |__/              
 '''
 print(logo)
 
-cards = [1,2,3,4,5,6,7,8,9,10,10,10,10]
+cards = [11,2,3,4,5,6,7,8,9,10,10,10,10]
 
 global user_cards
 global comp_cards
@@ -34,14 +34,24 @@ def bid_amount():
 
 def Compare(user_sum,comp_sum) :
    if user_sum == comp_sum :
-     print("Both are Equal ")
+     print("Both are Equal. ")
      print("It's a draw!!")
-   if user_sum < comp_sum :
-     print(f"Your sum is less than Computer Cards Sum ")
+   elif user_sum < comp_sum :
+     print(f"Your sum is less than Computer Cards Sum. ")
      print("You lose!!")
-   if user_sum > comp_sum :
-     print("It's Your Win")
+   elif user_sum > comp_sum :
+     print("It's Your Win. ")
      print(f"You Won {bid_amount().amount}")
+   elif user_sum == 21:
+     print("You won. ")
+     print(f"You Won {bid_amount().amount}")
+   elif user_sum > 21 :
+     print("You Lose")
+     print(f" As your cards sum is {user_sum}. ")
+   elif comp_sum > 21:
+      print(f"You Won. As Computer's Cards sum is {comp_sum} greater than 21. ")
+      print(f"You Won {bid_amount().amount}")
+    
 
 
 def deal_cards():
@@ -53,17 +63,41 @@ def deal_cards():
   print(f"Computer's Cards :[{comp_cards[0]},?]")
   print(f"User's Cards : [{user_cards}]")
 
+def draw_stand(hit,user_sum,comp_sum):
+  new_card = r.choice(cards)
+  if hit == 'draw':
+    if new_card == 11 and (21-user_sum)<21:
+      new_card = 1
+    user_cards.append(new_card)
+  else:
+    if new_card == 11 and (21-comp_sum)<21:
+      new_card = 1
+    comp_cards.append(new_card)
+    
+
 
 def play_game():
+  user_sum = 0
+  comp_sum = 0
   name = input("Please Enter Your name : ")
   print(f"Ok, {name} let's begin the game",end ='\n')
+  bid_amount()
+  deal_cards()
+  if 11 in user_cards and sum(user_cards) == 21:
+    user_cards.remove(11)
+    user_cards.append(1)
   
+  user_sum = sum(user_cards)
+  for i in comp_cards:
+      comp_sum +=i
 
-
-
-
-
-
-
-
- 
+    
+  if user_sum < 18 :
+    print("Please Enter 'draw' to contiue :\n")
+    hit = input().lower()
+    draw_stand(hit)
+    
+  if user_sum > 18 :
+    print("Will You draw another card or stand")
+    hit = input().lower()
+    draw_stand(hit)
