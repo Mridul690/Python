@@ -40,13 +40,15 @@ def deal_cards():
 
 
 
-def Compare(user_cards,comp_cards) :
-    sum = 0
-    for i in user_cards:
-        sum = sum+i
-  
-    if sum <18:
-        h = input("Please press 'H' for serving next card : ").upper()
-        if h == 'H':
-            new_card = r.choice(cards)
+def Compare(user_sum,comp_sum) :
+   if user_sum == comp_sum :
+     print("Both are Equal ")
+     print("It's a draw!!")
+   if user_sum < comp_sum :
+     print(f"Your sum is less than Computer Cards Sum ")
+     print("You lose!!")
+   if user_sum > comp_sum :
+     print("It's Your Win")
+     print(f"You Won {bid_amount().amount}")
+
  
