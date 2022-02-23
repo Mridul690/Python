@@ -14,6 +14,10 @@ _     _            _    _            _
 print(logo)
 
 cards = [1,2,3,4,5,6,7,8,9,10,10,10,10]
+
+global user_cards
+global comp_cards
+
 def bid_amount():
     bid = [10,50,100,500,1000]
     amount = 0
@@ -28,18 +32,6 @@ def bid_amount():
             Bidding = False
             print(f"Final Bidding Amount = {amount}")
 
-
-def deal_cards():
-  user_cards = r.sample(cards,2)
-  comp_cards = r.sample(cards,2)
-#  bid_amount()
-  #random.sample(list,n) returns n number (or list of size n)of randomly chosen elements from the given list ,string,tuple ,etc.
-  print(f"Computer's Cards :[{comp_cards[0]},?]")
-  print(f"User's Cards : [{user_cards}]")
-  Compare(user_cards,comp_cards)
-
-
-
 def Compare(user_sum,comp_sum) :
    if user_sum == comp_sum :
      print("Both are Equal ")
@@ -50,5 +42,28 @@ def Compare(user_sum,comp_sum) :
    if user_sum > comp_sum :
      print("It's Your Win")
      print(f"You Won {bid_amount().amount}")
+
+
+def deal_cards():
+  global user_cards
+  global comp_cards
+  user_cards = r.sample(cards,2)
+  comp_cards = r.sample(cards,2)
+  #random.sample(list,n) : returns n number (or list of size n)of randomly chosen elements from the given list ,string,tuple ,etc.
+  print(f"Computer's Cards :[{comp_cards[0]},?]")
+  print(f"User's Cards : [{user_cards}]")
+
+
+def play_game():
+  name = input("Please Enter Your name : ")
+  print(f"Ok, {name} let's begin the game",end ='\n')
+  
+
+
+
+
+
+
+
 
  
