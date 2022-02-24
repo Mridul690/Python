@@ -32,6 +32,7 @@ def bid_amount():
             Bidding = False
             print(f"Final Bidding Amount = {amount}")
 
+
 def Compare(user_sum,comp_sum) :
    if user_sum == comp_sum :
      print("Both are Equal. ")
