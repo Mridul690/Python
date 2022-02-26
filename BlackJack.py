@@ -66,6 +66,7 @@ def deal_cards():
 def draw_stand(hit,user_sum,comp_sum):
   new_card = r.choice(cards)
   flag = 1
+  
   while flag==1:
     if new_card in user_cards:
       new_card = r.choice(cards)
