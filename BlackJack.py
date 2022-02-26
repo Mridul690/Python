@@ -1,6 +1,8 @@
 import random as r
 from weakref import WeakMethod
 
+from platformdirs import user_runtime_dir
+
 logo = '''
 _     _            _    _            _    
 | |   | |          | |  (_)          | |   
@@ -66,6 +68,15 @@ def deal_cards():
 
 def draw_stand(hit,user_sum,comp_sum):
   new_card = r.choice(cards)
+  flag = 1
+  while flag==1:
+    if new_card in user_cards:
+      new_card = r.choice(cards)
+    elif new_card in user_cards:
+      new_card = r.choice(cards)
+    else:
+      flag = 0
+      
   if hit == 'draw':
     if new_card == 11 and (21-user_sum)<21:
       new_card = 1
@@ -93,11 +104,16 @@ def play_game():
       comp_sum +=i
 
     
-  if user_sum < 18 :
-    print("Please Enter 'draw' to contiue :\n")
+  while user_sum < 18 :
+    print("As your sum is less than 17,")
+    print("Please Enter 'draw' to contiue :")
     hit = input().lower()
     draw_stand(hit)
+    user_sum = sum(user_cards)
     
+    user_sum = sum(user_cards)
+    comp_sum = sum(comp_cards)
+
   if user_sum > 18 :
     print("Will You draw another card or stand")
     hit = input().lower()
