@@ -53,6 +53,8 @@ def Compare(user_sum,comp_sum) :
   elif comp_sum > 21:
     print(f"You Won. As Computer's Cards sum is {comp_sum} greater than 21. ")
     print(f"You Won {bid_amount().amount}")
+  else:
+    print("Error, Please check the code")
   
 def deal_cards():
   global user_cards
@@ -66,7 +68,7 @@ def deal_cards():
 def draw_stand(hit,user_sum,comp_sum):
   new_card = r.choice(cards)
   flag = 1
-  
+
   while flag==1:
     if new_card in user_cards:
       new_card = r.choice(cards)
@@ -98,7 +100,6 @@ def play_game():
   user_sum = sum(user_cards)
   for i in comp_cards:
       comp_sum +=i
-
     
   while user_sum < 18 :
     print("As your sum is less than 17,")
