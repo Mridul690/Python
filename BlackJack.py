@@ -21,6 +21,7 @@ global user_cards
 global comp_cards
 
 def bid_amount():
+  """This function allows the user to bid points"""
   bid = [10,50,100,500,1000]
   amount = 0
   print(f"You are to bid from {bid}\n")
@@ -35,6 +36,7 @@ def bid_amount():
           print(f"Final Bidding Amount = {amount}")
 
 def Compare(user_sum,comp_sum) :
+  """This functions compares the user cards sum and computer cards sum and returns the result accordingly"""
   if user_sum == comp_sum :
     print("Both are Equal. ")
     print("It's a draw!!")
@@ -57,6 +59,7 @@ def Compare(user_sum,comp_sum) :
     print("Error, Please check the code")
   
 def deal_cards():
+  """This function deals the cards to user and computer and displays the user's cards and one of computer's cards"""
   global user_cards
   global comp_cards
   user_cards = r.sample(cards,2)
@@ -66,6 +69,10 @@ def deal_cards():
   print(f"User's Cards : [{user_cards}]")
 
 def draw_stand(hit,user_sum,comp_sum):
+  """This function checks whether user wants to stand or draw a card.
+  If the user wants to draw then it will draw a non-repetetive card for user
+  If the user wants to stand then it will draw a non-repetetive card for computer
+  """
   new_card = r.choice(cards)
   flag = 1
 
@@ -87,6 +94,7 @@ def draw_stand(hit,user_sum,comp_sum):
     comp_cards.append(new_card)
     
 def play_game():
+  """The main function that access all the other functions"""
   user_sum = 0
   comp_sum = 0
   name = input("Please Enter Your name : ")
