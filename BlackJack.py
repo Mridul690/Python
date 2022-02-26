@@ -21,42 +21,39 @@ global user_cards
 global comp_cards
 
 def bid_amount():
-    bid = [10,50,100,500,1000]
-    amount = 0
-    print(f"You are to bid from {bid}\n")
-    print("Please enter your bid :")
-    Bidding = True
-    while Bidding:
-        amount += int(input())
-        print("Current bidding amount :", amount) 
-        choice = input("Do you want to bid more 'y' or 'n' :")
-        if choice == 'n':
-            Bidding = False
-            print(f"Final Bidding Amount = {amount}")
-
+  bid = [10,50,100,500,1000]
+  amount = 0
+  print(f"You are to bid from {bid}\n")
+  print("Please enter your bid :")
+  Bidding = True
+  while Bidding:
+      amount += int(input())
+      print("Current bidding amount :", amount) 
+      choice = input("Do you want to bid more 'y' or 'n' :")
+      if choice == 'n':
+          Bidding = False
+          print(f"Final Bidding Amount = {amount}")
 
 def Compare(user_sum,comp_sum) :
-   if user_sum == comp_sum :
-     print("Both are Equal. ")
-     print("It's a draw!!")
-   elif user_sum < comp_sum :
-     print(f"Your sum is less than Computer Cards Sum. ")
-     print("You lose!!")
-   elif user_sum > comp_sum :
-     print("It's Your Win. ")
-     print(f"You Won {bid_amount().amount}")
-   elif user_sum == 21:
-     print("You won. ")
-     print(f"You Won {bid_amount().amount}")
-   elif user_sum > 21 :
-     print("You Lose")
-     print(f" As your cards sum is {user_sum}. ")
-   elif comp_sum > 21:
-      print(f"You Won. As Computer's Cards sum is {comp_sum} greater than 21. ")
-      print(f"You Won {bid_amount().amount}")
-    
-
-
+  if user_sum == comp_sum :
+    print("Both are Equal. ")
+    print("It's a draw!!")
+  elif user_sum < comp_sum :
+    print(f"Your sum is less than Computer Cards Sum. ")
+    print("You lose!!")
+  elif user_sum > comp_sum :
+    print("It's Your Win. ")
+    print(f"You Won {bid_amount().amount}")
+  elif user_sum == 21:
+    print("You won. ")
+    print(f"You Won {bid_amount().amount}")
+  elif user_sum > 21 :
+    print("You Lose")
+    print(f" As your cards sum is {user_sum}. ")
+  elif comp_sum > 21:
+    print(f"You Won. As Computer's Cards sum is {comp_sum} greater than 21. ")
+    print(f"You Won {bid_amount().amount}")
+  
 def deal_cards():
   global user_cards
   global comp_cards
@@ -76,7 +73,7 @@ def draw_stand(hit,user_sum,comp_sum):
       new_card = r.choice(cards)
     else:
       flag = 0
-      
+
   if hit == 'draw':
     if new_card == 11 and (21-user_sum)<21:
       new_card = 1
@@ -86,8 +83,6 @@ def draw_stand(hit,user_sum,comp_sum):
       new_card = 1
     comp_cards.append(new_card)
     
-
-
 def play_game():
   user_sum = 0
   comp_sum = 0
@@ -108,13 +103,20 @@ def play_game():
     print("As your sum is less than 17,")
     print("Please Enter 'draw' to contiue :")
     hit = input().lower()
-    draw_stand(hit)
+    draw_stand(hit,user_sum,comp_sum)
     user_sum = sum(user_cards)
-    
-    user_sum = sum(user_cards)
-    comp_sum = sum(comp_cards)
 
   if user_sum > 18 :
     print("Will You draw another card or stand")
     hit = input().lower()
-    draw_stand(hit)
+    draw_stand(hit,user_sum,comp_sum)
+    user_sum = sum(user_cards)
+    comp_sum = sum(comp_cards)
+    Compare(user_sum,comp_sum)
+  
+  print("User's card :",user_cards)
+  print("Computer's Card :",comp_cards)
+  print(f"User's Cards Sum  = {user_sum}")
+  print(f"Computer's Cards Sum = {comp_sum}")
+
+play_game()
