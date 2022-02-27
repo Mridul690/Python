@@ -19,10 +19,12 @@ cards = [11,2,3,4,5,6,7,8,9,10,10,10,10]
 
 global user_cards
 global comp_cards
+global amount 
 
 def bid_amount():
   """This function allows the user to bid points"""
   bid = [10,50,100,500,1000]
+  global amount
   amount = 0
   print(f"You are to bid from {bid}\n")
   print("Please enter your bid :")
@@ -45,10 +47,10 @@ def Compare(user_sum,comp_sum) :
     print("You lose!!")
   elif user_sum > comp_sum :
     print("It's Your Win. ")
-    print(f"You Won {bid_amount().amount}")
+    print(f"You Won {amount}")
   elif user_sum == 21:
     print("You won. ")
-    print(f"You Won {bid_amount().amount}")
+    print(f"You Won {amount}")
   elif user_sum > 21 :
     print("You Lose")
     print(f" As your cards sum is {user_sum}. ")
@@ -66,7 +68,7 @@ def deal_cards():
   comp_cards = r.sample(cards,2)
   #random.sample(list,n) : returns n number (or list of size n)of randomly chosen elements from the given list ,string,tuple ,etc.
   print(f"Computer's Cards :[{comp_cards[0]},?]")
-  print(f"User's Cards : [{user_cards}]")
+  print(f"User's Cards : {user_cards}")
 
 def draw_stand(hit,user_sum,comp_sum):
   """This function checks whether user wants to stand or draw a card.
@@ -117,7 +119,7 @@ def play_game():
     user_sum = sum(user_cards)
 
   if user_sum > 18 :
-    print("Will You draw another card or stand")
+    print("Will You 'draw' another card or 'stand'")
     hit = input().lower()
     draw_stand(hit,user_sum,comp_sum)
     user_sum = sum(user_cards)
