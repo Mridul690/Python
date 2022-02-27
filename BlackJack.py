@@ -27,10 +27,9 @@ def bid_amount():
   global amount
   amount = 0
   print(f"You are to bid from {bid}\n")
-  print("Please enter your bid :")
   Bidding = True
   while Bidding:
-      amount += int(input())
+      amount += int(input("Please enter your bid : "))
       print("Current bidding amount :", amount) 
       choice = input("Do you want to bid more 'y' or 'n' :")
       if choice == 'n':
@@ -39,26 +38,29 @@ def bid_amount():
 
 def Compare(user_sum,comp_sum) :
   """This functions compares the user cards sum and computer cards sum and returns the result accordingly"""
-  if user_sum == comp_sum :
-    print("Both are Equal. ")
-    print("It's a draw!!")
-  elif user_sum < comp_sum :
-    print(f"Your sum is less than Computer Cards Sum. ")
-    print("You lose!!")
-  elif user_sum > comp_sum :
-    print("It's Your Win. ")
-    print(f"You Won {amount}")
-  elif user_sum == 21:
-    print("You won. ")
-    print(f"You Won {amount}")
-  elif user_sum > 21 :
+  if user_sum < 21:
+    if user_sum == comp_sum :
+      print("Both are Equal. ")
+      print("It's a draw!!")
+    elif user_sum < comp_sum :
+      print(f"Your sum is less than Computer Cards Sum. ")
+      print("You lose!!")
+    elif user_sum > comp_sum :
+      print("It's Your Win. ")
+      print(f"You Won {amount}")
+    elif user_sum == 21:
+      print("You won. ")
+      print(f"You Won {amount}")
+    else:
+      print("It's Your loss.")
+      print("Computer Wins!!")
+
+  if user_sum > 21 :
     print("You Lose")
-    print(f" As your cards sum is {user_sum}. ")
-  elif comp_sum > 21:
+    print(f"As your cards sum is {user_sum}. ")
+  if comp_sum > 21:
     print(f"You Won. As Computer's Cards sum is {comp_sum} greater than 21. ")
     print(f"You Won {bid_amount().amount}")
-  else:
-    print("Error, Please check the code")
   
 def deal_cards():
   """This function deals the cards to user and computer and displays the user's cards and one of computer's cards"""
