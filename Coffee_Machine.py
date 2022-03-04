@@ -73,7 +73,8 @@ def process_coin():
                 dime = int(input("Dimes = "))
                 nickel = int(input("Nickel = "))
                 penny = int(input("Penny = "))
-                amount = coins["quarter"] * quarter + coins["dime"] * dime + coins["nickel"] * nickel + coins["penny"] * penny
+                amount = coins["quarter"] * quarter + coins["dime"] * dime + coins["nickel"] * nickel + coins[
+                    "penny"] * penny
                 add = 99
         else:
             add = -99
@@ -82,19 +83,26 @@ def process_coin():
 
 
 def lacking():
+    a = False
     for key in resources:
         if resources[key] < sufficient_resources[key]:
-            print("Resources are not sufficient\n")
-            print(f"Please refill {key}")
-            print(f"Current {key} value : {resources[key]}")
-        else:
-            return False
+            a = True
+            break
+
+    return a
 
 
 def coffee_choice():
     global resources
+    if lacking():
+        for key in resources:
+
+            print("Resources are not sufficient\n")
+            print(f"Please refill {key}")
+            print(f"Current {key} value : {resources[key]}")
+
     amount = process_coin()
-    choice = input("What will you like to do? \n").lower()
+    choice = input("What will you like to do? ").lower()
 
     if choice == "report":
         for key in resources:
@@ -110,9 +118,13 @@ def coffee_choice():
                         print("Transaction Successful")
                         print("Here's your coffee")
                         for keys in resources:
-                            resources[keys] = resources[keys] - MENU[key][keys]
+                            resources[keys] = resources[keys] - MENU[key]["ingredients"][keys]
                         change_amt = amount - MENU[key]["cost"]
-                        return change_amt
+                        if change_amt > 0:
+                            print(f"Your Change is {change_amt}")
+                        else:
+                            print("No Change. You entered sufficient amount")
+                        print("Enjoy your coffee !!!")
                     else:
                         exit(0)
     else:
@@ -120,11 +132,4 @@ def coffee_choice():
         exit(0)
 
 
-change = coffee_choice()
-
-if change > 0:
-    print(f"Your Change is {change}")
-else:
-    print("No Change. You entered sufficient amount")
-
-print("Enjoy your coffee !!!")
+coffee_choice()
