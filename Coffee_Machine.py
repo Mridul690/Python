@@ -4,8 +4,7 @@ logo = '''
  | |   | |  | | |__  | |__  | |__  | |__    | \  / |  /  \ | |    | |__| | | | |  \| | |__   
  | |   | |  | |  __| |  __| |  __| |  __|   | |\/| | / /\ \| |    |  __  | | | | . ` |  __|  
  | |___| |__| | |    | |    | |____| |____  | |  | |/ ____ \ |____| |  | |_| |_| |\  | |____ 
-  \_____\____/|_|    |_|    |______|______| |_|  |_/_/    \_\_____|_|  |_|_____|_| \_|______|                                                                                                                                                                                      
-'''
+  \_____\____/|_|    |_|    |______|______| |_|  |_/_/    \_\_____|_|  |_|_____|_| \_|______| '''
 MENU = {
     "espresso": {
         "ingredients": {
@@ -83,24 +82,19 @@ def process_coin():
 
 
 def lacking():
+    global k
     a = False
-    for key in resources:
-        if resources[key] < sufficient_resources[key]:
+    for k in resources:
+        if resources[k] < sufficient_resources[k]:
             a = True
             break
 
-    return a
+    return [a, k]
 
 
 def coffee_choice():
     global resources
-    if lacking():
-        for key in resources:
-
-            print("Resources are not sufficient\n")
-            print(f"Please refill {key}")
-            print(f"Current {key} value : {resources[key]}")
-
+    result = lacking()
     amount = process_coin()
     choice = input("What will you like to do? ").lower()
 
@@ -114,7 +108,7 @@ def coffee_choice():
         for key in MENU:
             if coffee == MENU[key]:
                 if amount == MENU[key]["cost"] or amount > MENU[key]["cost"]:
-                    if not lacking():
+                    if not result[0]:
                         print("Transaction Successful")
                         print("Here's your coffee")
                         for keys in resources:
@@ -126,7 +120,12 @@ def coffee_choice():
                             print("No Change. You entered sufficient amount")
                         print("Enjoy your coffee !!!")
                     else:
+                        print("Resources not Sufficient", end='\n')
+                        print(f"Please refill {result[1]}")
                         exit(0)
+            else:
+                print("Wrong Order\n")
+                print("Please Order again\n")
     else:
         print("Please enter something meaningful")
         exit(0)

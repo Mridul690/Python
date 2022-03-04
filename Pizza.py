@@ -1,6 +1,6 @@
-#Write your code below this row 👇
-sum = 0
-for i in range(2,101,2):
-    sum +=i
+def test_list():
+    return ['abc', 100]
 
-print(sum)
+result = test_list()
+print(result)
+print(type(result))
