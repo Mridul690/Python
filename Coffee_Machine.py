@@ -1,4 +1,11 @@
-global resources
+logo = '''
+   _____ ____  ______ ______ ______ ______   __  __          _____ _    _ _____ _   _ ______ 
+  / ____/ __ \|  ____|  ____|  ____|  ____| |  \/  |   /\   / ____| |  | |_   _| \ | |  ____|
+ | |   | |  | | |__  | |__  | |__  | |__    | \  / |  /  \ | |    | |__| | | | |  \| | |__   
+ | |   | |  | |  __| |  __| |  __| |  __|   | |\/| | / /\ \| |    |  __  | | | | . ` |  __|  
+ | |___| |__| | |    | |    | |____| |____  | |  | |/ ____ \ |____| |  | |_| |_| |\  | |____ 
+  \_____\____/|_|    |_|    |______|______| |_|  |_/_/    \_\_____|_|  |_|_____|_| \_|______|                                                                                                                                                                                      
+'''
 MENU = {
     "espresso": {
         "ingredients": {
@@ -26,10 +33,10 @@ MENU = {
 }
 
 resources = {
-        "water": 300,
-        "milk": 200,
-        "coffee": 100,
-    }
+    "water": 300,
+    "milk": 200,
+    "coffee": 100,
+}
 
 sufficient_resources = {
     "water": 50,
@@ -39,10 +46,6 @@ sufficient_resources = {
 
 
 def process_coin():
-    quarter = 0
-    dime = 0
-    nickel = 0
-    penny = 0
     add = 9999
     coins = {
         "quarter": 0.25,
@@ -50,29 +53,42 @@ def process_coin():
         "nickel": 0.05,
         "penny": 0.01
     }
-    print("Please enter the coins \n")
+    print("Please enter the coins")
     quarter = int(input("Quarters = "))
     dime = int(input("Dimes = "))
     nickel = int(input("Nickel = "))
     penny = int(input("Penny = "))
-    amount = coins[quarter] * quarter + coins[dime] * dime + coins[nickel] * nickel + coins[penny] * penny
+    amount = coins["quarter"] * quarter + coins["dime"] * dime + coins["nickel"] * nickel + coins["penny"] * penny
 
-    while add>0:
+    while add > 0:
         if amount < 1.50:
-            print("Amount is too low please add more for continuing transaction or press 'cancel' to cancel transaction", end="\n")
+            print("Amount is too low please add more for continuing transaction or ", end="")
+            print("press 'cancel' to cancel transaction")
             move = input().lower()
-            if move=="cancel":
-                print("Your amount will refunded\n")
-            quarter = int(input("Quarters = "))
-            dime = int(input("Dimes = "))
-            nickel = int(input("Nickel = "))
-            penny = int(input("Penny = "))
-            amount = coins[quarter] * quarter + coins[dime] * dime + coins[nickel] * nickel + coins[penny] * penny
-            add = 99
+            if move == "cancel":
+                print("Your amount will be refunded\n")
+                exit(0)
+            else:
+                quarter = int(input("Quarters = "))
+                dime = int(input("Dimes = "))
+                nickel = int(input("Nickel = "))
+                penny = int(input("Penny = "))
+                amount = coins["quarter"] * quarter + coins["dime"] * dime + coins["nickel"] * nickel + coins["penny"] * penny
+                add = 99
         else:
             add = -99
 
     return amount
+
+
+def lacking():
+    for key in resources:
+        if resources[key] < sufficient_resources[key]:
+            print("Resources are not sufficient\n")
+            print(f"Please refill {key}")
+            print(f"Current {key} value : {resources[key]}")
+        else:
+            return False
 
 
 def coffee_choice():
@@ -80,25 +96,35 @@ def coffee_choice():
     amount = process_coin()
     choice = input("What will you like to do? \n").lower()
 
-    for key in resources:
-        if resources[key] < sufficient_resources[key]:
-            print("Resources are not sufficient\n")
-            print(f"Please refill {key}")
-            print(f"Current {key} value : {resources[key]}")
-
     if choice == "report":
         for key in resources:
             print(key + " :", end=' ')
             print(resources[key])
-    else:
+    elif choice == "order":
+        print("Coffee : Espresso , Latte , Cappuccino ")
+        coffee = input("Which coffee you want ? ").lower()
         for key in MENU:
-            if choice == MENU[key]:
-                if amount == MENU[key]["cost"]:
-                    print("Transaction Successful")
-                    print("Here's your coffee")
-                    for keys in resources:
-                        resources[keys] = resources[keys] - MENU[key][keys]
+            if coffee == MENU[key]:
+                if amount == MENU[key]["cost"] or amount > MENU[key]["cost"]:
+                    if not lacking():
+                        print("Transaction Successful")
+                        print("Here's your coffee")
+                        for keys in resources:
+                            resources[keys] = resources[keys] - MENU[key][keys]
+                        change_amt = amount - MENU[key]["cost"]
+                        return change_amt
+                    else:
+                        exit(0)
+    else:
+        print("Please enter something meaningful")
+        exit(0)
 
 
+change = coffee_choice()
 
+if change > 0:
+    print(f"Your Change is {change}")
+else:
+    print("No Change. You entered sufficient amount")
 
+print("Enjoy your coffee !!!")
