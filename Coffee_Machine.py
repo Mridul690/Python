@@ -5,6 +5,8 @@ logo = '''
  | |   | |  | |  __| |  __| |  __| |  __|   | |\/| | / /\ \| |    |  __  | | | | . ` |  __|  
  | |___| |__| | |    | |    | |____| |____  | |  | |/ ____ \ |____| |  | |_| |_| |\  | |____ 
   \_____\____/|_|    |_|    |______|______| |_|  |_/_/    \_\_____|_|  |_|_____|_| \_|______| '''
+
+print(logo)
 MENU = {
     "espresso": {
         "ingredients": {
@@ -88,11 +90,14 @@ def lacking():
         if resources[k] < sufficient_resources[k]:
             a = True
             break
-
-    return [a, k]
+    if not a:
+        return [a]
+    else:    
+        return [a, k]
 
 
 def coffee_choice():
+    coffee_receieved = False
     global resources
     result = lacking()
     amount = process_coin()
@@ -106,16 +111,19 @@ def coffee_choice():
         print("Coffee : Espresso , Latte , Cappuccino ")
         coffee = input("Which coffee you want ? ").lower()
         for key in MENU:
-            if coffee == MENU[key]:
+            if coffee == key:
                 if amount == MENU[key]["cost"] or amount > MENU[key]["cost"]:
                     if not result[0]:
                         print("Transaction Successful")
                         print("Here's your coffee")
+                        coffee_receieved = True
+
                         for keys in resources:
                             resources[keys] = resources[keys] - MENU[key]["ingredients"][keys]
                         change_amt = amount - MENU[key]["cost"]
+                        change_amt = round(change_amt)
                         if change_amt > 0:
-                            print(f"Your Change is {change_amt}")
+                            print(f"Your Change is ${change_amt}")
                         else:
                             print("No Change. You entered sufficient amount")
                         print("Enjoy your coffee !!!")
@@ -123,9 +131,10 @@ def coffee_choice():
                         print("Resources not Sufficient", end='\n')
                         print(f"Please refill {result[1]}")
                         exit(0)
-            else:
-                print("Wrong Order\n")
-                print("Please Order again\n")
+            
+            if not coffee_receieved and key == "cappuccino":
+                print("Your ordered coffee is not available",end = '\n')
+                print("Please choose from the available options\n")    
     else:
         print("Please enter something meaningful")
         exit(0)
