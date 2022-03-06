@@ -121,7 +121,7 @@ def coffee_choice():
                         for keys in resources:
                             resources[keys] = resources[keys] - MENU[key]["ingredients"][keys]
                         change_amt = amount - MENU[key]["cost"]
-                        change_amt = round(change_amt)
+                        change_amt = round(change_amt,3)
                         if change_amt > 0:
                             print(f"Your Change is ${change_amt}")
                         else:
@@ -133,7 +133,7 @@ def coffee_choice():
                         exit(0)
             
             if not coffee_receieved and key == "cappuccino":
-                print("Your ordered coffee is not available",end = '\n')
+                print("Your order is not available",end = '\n')
                 print("Please choose from the available options\n")    
     else:
         print("Please enter something meaningful")
